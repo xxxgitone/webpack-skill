@@ -56,9 +56,19 @@ new webpack.DllReferencePlugin({
 
 #### 优化UglifyJsPlugin
 
-parallel: 让loader变成并行处理
-cache
+webpack打包默认为链式,使用`parallel`可以让打包并行,多个loader共同工作,节约时间
+```javascript
+new UglifyJsPlugin({
+  parallel: true,
+  cache: true // 开启缓存
+})
+```
 
 #### sourcemap
 
-#### cache-loader
+也可以将sourcemap关掉,缺点就是当线上代码有问题的时候,不好调试
+
+### 长缓存优化
+
+#### 什么是长缓存
+
