@@ -1,6 +1,6 @@
 module.exports = {
   entry: {
-    app: './index.js'
+    app: './index.js' // 相对路径
   },
 
   output: {
@@ -14,13 +14,6 @@ module.exports = {
         // use: 'babel-loader'
         use: {
           loader: 'babel-loader',
-          options: {
-            presets: ['env', {
-              targets: {
-                browsers: ['> 1%', 'last 2 versions', 'not ie <= 8']
-              }
-            }]
-          }
         },
         exclude: '/node_modules/'
       }

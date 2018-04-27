@@ -1,5 +1,81 @@
 # webpack技能
 
+### 编译es6/es7+
+
+```bash
+npm install "babel-loader@^8.0.0-beta" @babel/core @babel/preset-env webpack
+```
+配置
+
+```javascript
+rules: [
+  {
+    
+    test: '/\.js$/',
+    // use: 'babel-loader'
+    use: {
+      loader: 'babel-loader',
+      options: {
+        presets: ['@babel/preset-env', {
+          targets: {
+            browsers: ['> 1%', 'last 2 versions', 'not ie <= 8']
+          }
+        }]
+      }
+    },
+    exclude: '/node_modules/'
+  }
+]
+```
+
+`targets.browsers`表示支持的浏览器，[详细列表](https://github.com/browserslist/browserslist)
+
+##### `babel`插件
+
+使用`babel-loader`编译，默认只会编译语法，比如箭头函数等。但是很多api并不会进行编译，比如`Generator`, `Set`, `Map`, `Array`的`includes`方法等。需要使用插件
+
+* `babel-polyfill`: 全局编译，直接全局引用即可，适用于开发应用
+
+安装
+
+```bash
+npm i babel-polyfill -S
+```
+
+使用
+
+```js
+import 'babel-polyfill'
+```
+
+* `babel-runtime-transform`: 局部编译，不会污染全局，适用于开发框架
+
+安装
+
+```bash
+npm i @babel/plugin-transform-runtime -D
+
+npm i @babel/runtime -S
+```
+
+使用,配置根目录下的`.babelrc`
+
+```json
+{
+  "presets": [
+    ["@babel/preset-env", {
+      "targets": {
+        "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
+      }
+    }]
+  ],
+
+  "plugins": [
+    "@babel/transform-runtime"
+  ]
+}
+```
+
 ### webpack打包速度优化
 
 #### 速度影响因素: 文件多,依赖多,页面多!
