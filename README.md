@@ -10,8 +10,7 @@ npm install "babel-loader@^8.0.0-beta" @babel/core @babel/preset-env webpack
 ```javascript
 rules: [
   {
-    
-    test: '/\.js$/',
+    test: /\.js$/,
     // use: 'babel-loader'
     use: {
       loader: 'babel-loader',
@@ -23,7 +22,7 @@ rules: [
         }]
       }
     },
-    exclude: '/node_modules/'
+    exclude: /node_modules/
   }
 ]
 ```
@@ -66,12 +65,13 @@ npm i @babel/runtime -S
     ["@babel/preset-env", {
       "targets": {
         "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
-      }
+      },
+      "debug": true
     }]
   ],
 
   "plugins": [
-    "@babel/transform-runtime"
+    "@babel/plugin-transform-runtime"
   ]
 }
 ```
