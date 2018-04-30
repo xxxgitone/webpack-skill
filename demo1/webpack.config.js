@@ -1,6 +1,6 @@
 module.exports = {
   entry: {
-    app: './index.js' // 相对路径
+    app: './src/index.ts'
   },
 
   output: {
@@ -15,6 +15,12 @@ module.exports = {
           loader: 'babel-loader',
         },
         exclude: /node_modules/,      
+      },
+      {
+        test: /\.tsx?$/,
+        use: {
+          loader: 'ts-loader'
+        }
       }
     ]
   }

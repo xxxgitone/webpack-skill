@@ -10,6 +10,7 @@ npm install "babel-loader@^8.0.0-beta" @babel/core @babel/preset-env webpack
 ```javascript
 rules: [
   {
+    // 注意别写成字符串形式，test: '/\.js$/'，尴尬
     test: /\.js$/,
     // use: 'babel-loader'
     use: {
@@ -75,6 +76,59 @@ npm i @babel/runtime -S
   ]
 }
 ```
+
+### 编译`typescript`
+
+安装
+
+```bash
+npm i typescript ts-loader -S
+```
+
+> 如果使用的是webpack3，ts-loader记得指定低版本的比如`ts-loader@3.5.0`，要不然会报错
+
+配置`webpack.config.js`
+
+```js
+rules: [
+  {
+    test: /\.js$/,
+    use: {
+      loader: 'babel-loader',
+    },
+    exclude: /node_modules/,      
+  },
+  {
+    test: /\.tsx?$/,
+    use: {
+      loader: 'ts-loader'
+    }
+  }
+]
+````
+
+
+根目录新建`tsconfig.json`文件
+
+```json
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "allowJs": true
+  },
+  "include": [
+    "./src/*"
+  ],
+  "exclude": [
+    "./node_modules"
+  ]
+}
+```
+
+在`typescript`中使用第三方库的时候，如果需要类型判断，则需要安装第三方的类型库
+
+比如`npm i @types/lodash -D`安装完成后，当使用`lodash`方法的时候就会有对应的类型判断功能。
 
 ### webpack打包速度优化
 
