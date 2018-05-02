@@ -203,6 +203,40 @@ plugins: [
 ]
 ```
 
+### 处理`CSS`
+
+`style-loader`: 主要用于创建`style`标签的
+
+`css-loader`: 主要让`js`能够`import`引入
+
+```bash
+npm i style-loader css-loader -D
+```
+
+配置
+
+```js
+module: {
+  rules: [
+    {
+      test: /.css$/,
+      use: [
+        {
+          loader: 'style-loader'
+        },
+        {
+          loader: 'css-loader',
+          options: {
+            // 开启css-modules
+            // modules: true
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
 ### webpack打包速度优化
 
 #### 速度影响因素: 文件多,依赖多,页面多!
