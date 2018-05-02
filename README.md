@@ -134,7 +134,74 @@ rules: [
 
 当多个js文件引用同一个代码块，将相同的代码提取出来，这样相同的代码页面只要加载一次就可以
 
+`CommonsChunkPlugin`是`webpack`内置的一个插件，所以使用的时候要安装`webapck`进依赖,即`npm i webapck -D`
 
+默认情况下，需要配置多个入口`entry`才能提取出公共模块，很多时候也需要将第三方库也打包成公共模块
+
+配置入口项
+
+```js
+entry: {
+  // 两个页面，它们使用了相同的模块
+  pageA: './src/pageA.js',
+  pageB: './src/pageB.js',
+  // 这是第三方模块，单独一个入口
+  vendor: ['lodash', 'axios']
+}
+
+output: {
+  path: path.resolve(__dirname, './dist'),
+  filename: '[name].bundle.js',
+  chunkFilename: '[name].chunk.js'
+},
+
+/* 省略...*/
+
+// 配置插件
+plugins: [
+  // 打包第三方的库
+  new webpack.optimize.CommonsChunkPlugin({
+    name: 'vendor',
+    minChunks: Infinity
+  }),
+
+  // 项目的业务代码
+  new webpack.optimize.CommonsChunkPlugin({
+    name: 'manifest',
+    minChunks: Infinity
+  })
+
+  // 简写
+  // new webpack.optimize.CommonsChunkPlugin({
+  //   names: ['vendor', 'manifest'],
+  //   minChunks: Infinity
+  // })
+]
+```
+
+当我们如果想要将业务代码和三方库代码打包到一个文件下，我们只要使用一次`CommonsChunkPlugin`即可
+
+```js
+new webpack.optimize.CommonsChunkPlugin({
+  name: 'vendor',
+  minChunks: Infinity
+})
+```
+
+这样业务代码和三方库代码都会打包进入`vendor.bundle.js`中
+
+另外，也可以提取的页面
+
+```js
+plugins: [
+  new webpack.optimize.CommonsChunkPlugin({
+    name: 'common',
+    // 重复两次就提取出来
+    minChunks: 2,
+    chunks: ['pageA', 'pageB']
+  }),
+]
+```
 
 ### webpack打包速度优化
 
