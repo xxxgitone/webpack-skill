@@ -229,10 +229,89 @@ module: {
           options: {
             // 开启css-modules
             // modules: true
+            // 压缩
+            minimize: true
           }
         }
       ]
     }
+  ]
+}
+```
+
+### 使用预处理器`SASS`
+
+安装
+
+```bash
+npm i node-sass sass-loader -D
+```
+
+配置
+
+```js
+module: {
+  rules: [
+    {
+      test: /.scss$/,
+      use: [
+        {
+          loader: 'style-loader'
+        },
+        {
+          loader: 'css-loader'
+        }，
+        {
+          loader: 'sass-loader'
+        }
+      ]
+    }
+  ]
+}
+```
+
+### 提取`CSS`插件`extract-text-webpack-plugin`
+
+安装
+
+```bash
+npm i extract-text-webpack-plugin -D
+```
+
+配置
+
+```js
+var ExtractTextWebpackPlugin = require('extract-text-webpack-plugin')
+
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /.scss$/,
+        use: ExtractTextWebpackPlugin.extract({
+          fallback: {
+            loader: 'style-loader'
+          },
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                minimize: true
+              }
+            },
+            {
+              loader: 'sass-loader'
+            }
+          ]
+        })
+      }
+    ]
+  },
+
+  plugins: [
+    new ExtractTextWebpackPlugin({
+      filename: '[name].min.css',
+    })
   ]
 }
 ```
