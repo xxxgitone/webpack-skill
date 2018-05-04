@@ -381,6 +381,15 @@ npm i postcss postcss-loader autoprefixer cssnano postcss-cssnext
 ]
 ```
 
+### `Tree shaking`
+
+把没有用到的代码自动剔除掉，使用`webpack`内置插件`UglifyJsPlugin`可以实现，这个插件可以实现压缩以及`tree shaking`
+
+```js
+plugins: [
+  new webpack.optimize.UglifyJsPlugin()
+]
+```
 
 ### webpack打包速度优化
 
