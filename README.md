@@ -391,6 +391,67 @@ plugins: [
 ]
 ```
 
+### 图片处理
+
+`file-loader`：处理`css`引用图片
+
+`url-loader`： 和`file-loader`功能类似，但是可以将图片转换成`base64`
+
+`img-loader`: 图片压缩
+
+`postcss-sprites`: 合成雪碧图
+
+```js
+module: {
+  rules: [
+    {
+      test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+      use: [
+        {
+          loader: 'url-loader',
+          options: {
+            // 小于10k的图片会转成base64位的形式
+            limit: 10000,
+            name: 'img/[name]-[hash:5].[ext]'
+            publicPath: '',
+            outputPath: 'dist/',
+            // 生成相对url
+            useRelativePath: true
+          }
+        }
+      ]
+    },
+  ]
+}
+```
+
+### 处理字体
+
+和处理图片类似
+
+```js
+module: {
+  rules: [
+    {
+      test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+      use: [
+        {
+          loader: 'url-loader',
+          options: {
+            limit: 10000,
+            name: 'fonts/[name]-[hash:5].[ext]'
+            publicPath: '',
+            outputPath: 'dist/',
+            // 生成相对url
+            useRelativePath: true
+          }
+        }
+      ]
+    },
+  ]
+}
+```
+
 ### webpack打包速度优化
 
 #### 速度影响因素: 文件多,依赖多,页面多!

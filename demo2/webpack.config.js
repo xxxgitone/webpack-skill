@@ -30,7 +30,23 @@ module.exports = {
             }
           ]
         })
-      }
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10000,
+              name: 'img/[name]-[hash:5].[ext]',
+              publicPath: '',
+              outputPath: 'dist/',
+              // 生成相对url
+              useRelativePath: true
+            }
+          }
+        ]
+      },
     ]
   },
 
