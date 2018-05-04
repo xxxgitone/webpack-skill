@@ -442,13 +442,42 @@ module: {
             name: 'fonts/[name]-[hash:5].[ext]'
             publicPath: '',
             outputPath: 'dist/',
-            // 生成相对url
             useRelativePath: true
           }
         }
       ]
     },
   ]
+}
+```
+
+### 使用第三方库
+
+以使用`jquery`为例
+
+如果使用`cdn`链接，直接放在html中使用`script`引入即可。
+
+如果通过`npm`安装了`jQuery`，可以使用插件注入到全局
+
+```js
+plugins: [
+  new webpack.ProvidePlugin({
+    $: 'jquery',
+  })
+]
+```
+
+这样可以在项目的各个地方直接使用`$`了，不同再次引入
+
+如果`jquery`是我们自己下载的，放在自定义的目录下`lib/jquery.js`
+
+通过`resolve`设置别名
+
+```js
+resolve: {
+  alias: {
+    jquery$: path.resolve(__dirname, './src/lib/jquery.js')
+  }
 }
 ```
 
