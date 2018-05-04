@@ -28,6 +28,17 @@ module.exports = {
               }
             },
             {
+              loader: 'postcss-loader',
+              options: {
+                ident: 'postcss',
+                plugins: [
+                  // require('autoprefixer')(),
+                  // cssnext 包含了autoprefixer
+                  require('postcss-cssnext')()
+                ]
+              }
+            },
+            {
               loader: 'sass-loader'
             }
           ]

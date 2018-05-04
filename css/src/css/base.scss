@@ -3,3 +3,15 @@ $color: red;
 html {
   background: $color;
 }
+
+.box {
+  transition: transform 1s;
+}
+
+:root {
+  --mainColor: red;
+}
+
+a {
+  color: var(--mainColor)
+}

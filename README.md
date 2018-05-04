@@ -316,6 +316,72 @@ module.exports = {
 }
 ```
 
+### 使用`postcss`
+
+处理`css`的工具,配置各种`postcss`的插件可以完成很多功能，常见的比如：
+
+`autoprefixer` 添加浏览器厂商前缀
+
+`cssnano` 压缩，css-loader引用的它
+
+`postcss-next` 可以使用新的语法: `variables`、`calc`、`custom selectors`
+
+安装
+
+```bash
+npm i postcss postcss-loader autoprefixer cssnano postcss-cssnext
+```
+
+使用
+
+```js
+ module: {
+  rules: [
+    {
+      test: /.scss$/,
+      use: ExtractTextWebpackPlugin.extract({
+        fallback: {
+          loader: 'style-loader'
+        },
+        use: [
+          {
+            loader: 'css-loader',
+            options: {
+              minimize: true
+            }
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss',
+              plugins: [
+                // require('autoprefixer')(),
+                // cssnext 包含了autoprefixer
+                require('postcss-cssnext')()
+              ]
+            }
+          },
+          {
+            loader: 'sass-loader'
+          }
+        ]
+      })
+    }
+  ]
+}
+```
+
+设置需要兼容的浏览器，可以统一放在`package.json`中，这样所有插件都会使用`package.json`中的浏览器配置，包括`babel-loader`
+
+```json
+"browserslist": [
+  "> 1%",
+  "last 2 versions",
+  "not ie <= 8"
+]
+```
+
+
 ### webpack打包速度优化
 
 #### 速度影响因素: 文件多,依赖多,页面多!
