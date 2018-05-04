@@ -481,6 +481,47 @@ resolve: {
 }
 ```
 
+### 处理`HTML`文件
+
+使用插件`html-webpack-plugin`让打包的`css`和`js`自动插入到`Html`文件中
+
+```js
+new HtmlWebpackPlugin({
+  // 默认就是
+  filename: 'index.html',
+  template: './index.html',
+  // 是否自动插入生成的css和js文件,默认true
+  // inject: false,
+  // 指定需要载入的chunks，默认载入enry所有的
+  // chunks: ['app']
+  // 压缩
+  // minify: {
+  //   collapseWhitespace: true
+  // }
+})
+```
+
+如果在模板`index.html`中直接使用图片，要用额外的`html-loader`来进行处理
+
+```js
+module: {
+  rules: [
+    {
+      test: /\.html$/
+      use: [
+        {
+          loader: 'html-loader',
+           options: {
+            // 默认会处理`img:src`, 如果图片放在`data-`上就要重新设定
+            attrs: ['img:src', 'img:data-src']
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
 ### webpack打包速度优化
 
 #### 速度影响因素: 文件多,依赖多,页面多!
