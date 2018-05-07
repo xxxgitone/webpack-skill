@@ -522,6 +522,27 @@ module: {
 }
 ```
 
+### 搭建开发环境
+
+搭建一个开发环境，提供一个本地服务，可以很好的模拟线上服务，减少上线后出现的问题。并且可以借助`webpack`提供的插件实现热更新，提升开发体验。
+
+每次修改代码后自动实现编译打包，我们等每次打包之前，将原有的打包文件删除掉，利用`clean-webpack-plugin`插件
+
+```bash
+npm i clean-webpack-plugin -D
+```
+
+使用
+
+```js
+plugins: [
+  new CleanWebpackPlugin(['dist'])
+]
+```
+
+`webpack`提供了一个强大的开发服务插件`webpack-dev-server`
+
+
 ### webpack打包速度优化
 
 #### 速度影响因素: 文件多,依赖多,页面多!
