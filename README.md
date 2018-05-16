@@ -542,6 +542,48 @@ plugins: [
 
 `webpack`提供了一个强大的开发服务插件`webpack-dev-server`
 
+常用配置
+
+```js
+devServer: {
+  port: 9999,
+  // 默认为true，推荐使用默认值
+  // inline: false,
+  // 开发的单页面的时候用，当访问到不存在的页面时会出现404
+  // 设置后会统一跳转到index.html
+  historyApiFallback: true,
+  // 代理远程接口，使用的是`http-proxy-middleware` https://github.com/chimurai/http-proxy-middleware
+  proxy: {
+    // 代理地址
+    '/api': {
+      // 目标地址
+      target: 'https://www.example.com',
+      //// 跨域
+      changeOrigin: true
+      // 代理请求头
+      // headers:
+      // log日志
+      // logLevel
+    },
+  },
+}
+```
+### 开启`source map`调试
+
+`source map`的值有很多，推荐使用
+
+开发阶段
+
+```js
+devtool: 'cheap-module-eval-source-map'
+```
+
+生产环境
+
+```js
+devtool: '#source-map'
+```
+
 
 ### webpack打包速度优化
 

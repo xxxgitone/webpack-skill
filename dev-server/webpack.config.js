@@ -49,6 +49,8 @@ module.exports = {
     ]
   },
 
+  devtool: 'cheap-module-eval-source-map',
+
   devServer: {
     port: 9999,
     // 默认为true，推荐使用默认值
@@ -69,7 +71,7 @@ module.exports = {
         // log日志
         // logLevel
       },
-    }
+    },
   },
 
   plugins: [
