@@ -583,7 +583,52 @@ devtool: 'cheap-module-eval-source-map'
 ```js
 devtool: '#source-map'
 ```
+### `eslint`
 
+安装 `npm i eslint eslint-loader eslint-config-standard eslint-friendly-formatter eslint-plugin-import eslint-plugin-node eslint-plugin-promise eslint-plugin-standard -D`
+
+配置
+
+```webpack.config.js
+module: {
+  rules: [
+    {
+      test: /\.js$/,
+      use: [
+        {
+          loader: 'babel-loader',
+        },
+        {
+          loader: 'eslint-loader',
+          options: {
+            formatter: require('eslint-friendly-formatter')
+          }
+        }
+      ]
+    },
+  ]
+}
+```
+`.eslintrc.js`配置
+
+```js
+module.exports = {
+  root: true,
+  extends: 'standard',
+  plugins: [
+    // 在html文件中写js会有检测
+    // 'html'
+  ],
+  env: {
+    browser: true,
+    node: true
+  },
+  rules: {
+  }
+}
+```
+
+### 
 
 ### webpack打包速度优化
 

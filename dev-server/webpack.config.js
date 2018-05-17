@@ -18,6 +18,23 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.js$/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env']
+            }
+          },
+          {
+            loader: 'eslint-loader',
+            options: {
+              formatter: require('eslint-friendly-formatter')
+            }
+          }
+        ]
+      },
+      {
         test: /.scss$/,
         use: ExtractTextWebpackPlugin.extract({
           fallback: {
@@ -25,7 +42,7 @@ module.exports = {
           },
           use: [
             {
-              loader: 'css-loader',
+              loader: 'css-loader'
             },
             {
               loader: 'sass-loader'
