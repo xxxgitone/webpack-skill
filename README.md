@@ -391,6 +391,19 @@ plugins: [
 ]
 ```
 
+另外需要注意的是webpack已经原生支持 ES Module，不需要 babel 把 ES Module 转换成曾经的 commonjs 模块了，需要关闭 babel 默认的模块转义，否则`tree-shaking`不会生效
+
+```js
+{
+  "presets": [
+    ["env", {
+      "modules": false
+      }
+    }]
+  ]
+}
+```
+
 ### 图片处理
 
 `file-loader`：处理`css`引用图片
